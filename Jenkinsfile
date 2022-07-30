@@ -2,15 +2,12 @@ pipeline {
     agent {
         label jenkins-slave
     }
-
     environment {
         dockerhubcredentials = 'dockerhubcredentials'
     }
-
     tools{
         nodejs "node"
     }
-
     stage('Build & Push docker image') {
         steps{
             script {
