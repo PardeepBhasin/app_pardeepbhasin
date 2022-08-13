@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubUsernameAndPasswordAsToken', url: 'https://github.com/PardeepBhasin/NextAppPub.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubUsernameAndPasswordAsToken', url: 'https://github.com/PardeepBhasin/NextAppPub.git']]])
             }
         }
         stage('Install Packages') {
