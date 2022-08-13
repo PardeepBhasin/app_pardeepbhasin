@@ -1,19 +1,28 @@
 pipeline {
-    agent {
-        label jenkins-slave
+    agent any
+    tools {
+        nodejs "nodejs"
     }
     environment {
-        dockerhubcredentials = 'dockerhubcredentials'
+        dockerImage = ''
+        registryCredential = 'dockerhubcredentials'
+        registry = 'pardeepbhasin123/next-app'
     }
-    tools{
-        nodejs "node"
-    }
-    stage('Build & Push docker image') {
-        steps{
-            script {
-                dockerImage = docker.build 'pardeepbhasin123/myapp:1.0.4'
-                docker.withRegistry('',dockerhubcredentials) {
-                    dockerImage.push('1.0.4')
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubUsernameAndPasswordAsToken', url: 'https://github.com/PardeepBhasin/NextAppPub.git']]])
+            }
+        }
+        stage('Install Packages') {
+            steps {
+                sh "npm install"
+            }
+        }
+        stage('Build Docker image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
