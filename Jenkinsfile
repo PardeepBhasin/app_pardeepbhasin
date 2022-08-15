@@ -11,12 +11,12 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[credentialsId: 'GitHubUsernameAndPasswordAsToken', url: 'https://github.com/PardeepBhasin/app_pardeepbhasin.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/PardeepBhasin/app_pardeepbhasin.git']]])
             }
         }
         stage('Install Packages') {
             steps {
-                sh "npm install"
+                bat "npm install"
             }
         }
         stage('Build Docker image') {
