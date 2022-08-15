@@ -14,5 +14,10 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/PardeepBhasin/app_pardeepbhasin.git']]])
             }
         }
+        stage('Install Packages') {
+            steps {
+                sh "npm install"
+            }
+        }
     }
 }
