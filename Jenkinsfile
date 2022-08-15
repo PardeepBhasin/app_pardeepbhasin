@@ -19,5 +19,12 @@ pipeline {
                 bat "npm install"
             }
         }
+        stage('Build Docker image') {
+            steps {
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
     }
 }
