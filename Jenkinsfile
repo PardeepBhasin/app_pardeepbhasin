@@ -7,7 +7,7 @@ pipeline {
         scannerHome = tool 'SonarQubeScanner'
         dockerImage = ''
         registryCredential = 'dockerhubcredentials'
-        registry = 'pardeepbhasin123/i-pardeepbhasin-master'
+        imagename = 'pardeepbhasin123/i-pardeepbhasin-master'
     }
     stages {
         stage('Checkout') {
@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build imagename
                 }
             }
         }
@@ -31,6 +31,16 @@ pipeline {
             steps {
                 withSonarQubeEnv('Test_Sonar') {
                     bat "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+        stage('Push Image') {
+            steps {
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')
+                    }
                 }
             }
         }
