@@ -24,6 +24,7 @@ pipeline {
             steps {
                 script {
                     dockerImage = 'pardeepbhasin123/i-$BUILD_USER-$BRANCH_NAME' + ":latest"
+                    echo ${dockerImage}
                     bat 'docker build -t ${dockerImage} .'
                 }
             }
