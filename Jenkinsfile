@@ -22,7 +22,10 @@ pipeline {
         }
         stage('Build Docker image') {
             steps {
-                bat 'docker build -t pardeepbhasin123/i-$BUILD_USER-$BRANCH_NAME:latest .'
+                script {
+                    dockerImage = 'pardeepbhasin123/i-$BUILD_USER-$BRANCH_NAME' + ":latest"
+                    bat 'docker build -t ${dockerImage} .'
+                }
             }
         }
         stage('Sonarqube Analysis') {
