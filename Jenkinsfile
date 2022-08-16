@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }
-        stage(''Sonarqube Analysis) {
+        stage('Sonarqube Analysis') {
             steps {
                 nodejs(nodeJSInstallationName: 'nodejs') {
                     bat "npm install"
