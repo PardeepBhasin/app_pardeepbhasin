@@ -4,6 +4,7 @@ pipeline {
         nodejs "nodejs"
     }
     environment {
+        scannerHome = tool 'SonarQubeScanner'
         dockerImage = ''
         registryCredential = 'dockerhubcredentials'
         registry = 'pardeepbhasin123/next-app'
@@ -28,12 +29,8 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                nodejs(nodeJSInstallationName: 'nodejs') {
-                    bat "npm install"
-                    withSonarQube('sonar') {
-                        bat "npm install sonar-scanner"
-                        bat "npm run sonar"
-                    }
+                withSonarQubeEnv('SonarQube') {
+                    bat "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
