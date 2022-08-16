@@ -26,5 +26,16 @@ pipeline {
                 }
             }
         }
+        stage(''Sonarqube Analysis) {
+            steps {
+                nodejs(nodeJSInstallationName: 'nodejs') {
+                    bat "npm install"
+                    withSonarQube('sonar') {
+                        bat "npm install sonar-scanner"
+                        bat "npm run sonar"
+                    }
+                }
+            }
+        }
     }
 }
