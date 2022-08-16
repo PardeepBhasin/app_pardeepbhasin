@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":latest"
+                    dockerImage = 'pardeepbhasin123/i-$BUILD_USER-$BRANCH_NAME' + ":latest"
                 }
             }
         }
