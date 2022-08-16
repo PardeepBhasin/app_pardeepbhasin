@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Sonarqube Analysis') {
             steps {
-                withSonarQubeEnv('Test') {
+                withSonarQubeEnv('Test_Sonar') {
                     bat "${scannerHome}/bin/sonar-scanner"
                 }
             }
