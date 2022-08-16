@@ -7,7 +7,7 @@ pipeline {
         scannerHome = tool 'SonarQubeScanner'
         dockerImage = ''
         registryCredential = 'dockerhubcredentials'
-        registry = 'pardeepbhasin123/next-app'
+        registry = 'pardeepbhasin123/i-$BUILD_USER-$BRANCH_NAME'
     }
     stages {
         stage('Checkout') {
@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + ":latest"
                 }
             }
         }
