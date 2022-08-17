@@ -23,10 +23,21 @@ pipeline {
             }
         }
         stage('Sonarqube Analysis') {
+            when {
+                branch "develop"
+            }
             steps {
                 withSonarQubeEnv('Test_Sonar') {
                     bat "${scannerHome}/bin/sonar-scanner"
                 }
+            }
+        }
+        stage('Test case execution') {
+            when {
+                branch "master"
+            }
+            steps {
+                bat "npm test"
             }
         }
         stage('Push Image') {
