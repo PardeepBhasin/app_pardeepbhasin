@@ -17,6 +17,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 script {
+                    echo "Branch name is "+env.BRANCH_NAME
                     dockerImage = docker.build 'pardeepbhasin123/i-pardeepbhasin-'+env.BRANCH_NAME
                 }
             }
