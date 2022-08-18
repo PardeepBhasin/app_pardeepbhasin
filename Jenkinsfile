@@ -37,6 +37,7 @@ pipeline {
                 branch "master"
             }
             steps {
+                bat "npm install -g jest"
                 bat "npm test"
             }
         }
