@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: webapp-container
+          image: pardeepbhasin123/i-pardeepbhasin-master:latest
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+      app: myapp
