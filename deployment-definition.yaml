@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: webapp-container
-          image: pardeepbhasin123/i-pardeepbhasin-master:latest
+          image: pardeepbhasin123/i-pardeepbhasin-develop:latest
   replicas: 3
   selector:
     matchLabels:
