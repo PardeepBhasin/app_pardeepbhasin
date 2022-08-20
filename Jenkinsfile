@@ -52,5 +52,11 @@ pipeline {
                 }
             }
         }
+        stage('Kubernetes Deployment') {
+		    steps {
+                echo "Kubernetes deployment"
+		        bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f deployment.yaml"
+		    }
+		}
     }
 }

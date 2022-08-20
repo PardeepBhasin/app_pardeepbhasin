@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webapp-prod-configmap
+  namespace: webapp-prod
+data:
+  analytic-url: test
