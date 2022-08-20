@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  namespace: webapp-prod
+  labels:
+    app: frontend-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - name: frontend-app
+        image: pardeepbhasin123/i-pardeepbhasin-develop:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: AppName
+          valueFrom:
+            secretKeyRef:
+              name: webapp-prod-secret
+              key: app-name
+        - name: Analytic_URL
+          valueFrom:
+            configMapKeyRef:
+              name: webapp-prod-configmap
+              key: analytic-url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app-service
+  namespace: webapp-prod
+spec:
+  type: LoadBalancer
+  selector: 
+    app: frontend-app
+  ports:    
+  - protocol: TCP
+    port: 8400
+    targetPort: 3000
+    nodePort: 30010
+---
