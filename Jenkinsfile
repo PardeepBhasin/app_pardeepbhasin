@@ -14,6 +14,7 @@ pipeline {
                 script {
                     echo "Branch name is "+env.BRANCH_NAME
                     dockerImage = docker.build 'pardeepbhasin123/i-pardeepbhasin-'+env.BRANCH_NAME
+                    echo "Docker image build done"
                 }
             }
         }
@@ -25,6 +26,7 @@ pipeline {
                 withSonarQubeEnv('Test_Sonar') {
                     bat "${scannerHome}/bin/sonar-scanner"
                 }
+                echo "Sonar analysis done"
             }
         }
         stage('Test case execution') {
@@ -35,6 +37,7 @@ pipeline {
                 bat "npm install jest-environment-jsdom"
                 bat "npm install -g jest"
                 bat "npm test"
+                echo "Text execution done"
             }
         }
         stage('Push Image') {
@@ -45,6 +48,7 @@ pipeline {
                         dockerImage.push('latest')
                     }
                 }
+                echo "Image pushed successfully"
             }
         }
         stage('Kubernetes Deployment') {
@@ -54,6 +58,7 @@ pipeline {
                 bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f configmap.yaml"
                 bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f secret.yaml"
 		        bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f deployment.yaml"
+                echo "Deployment done"
 		    }
 		}
     }
