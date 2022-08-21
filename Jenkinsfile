@@ -9,12 +9,7 @@ pipeline {
         registryCredential = 'dockerhubcredentials'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/'+env.BRANCH_NAME]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/PardeepBhasin/app_pardeepbhasin.git']]])
-            }
-        }
-        stage('Build Docker image') {
+        stage('Build') {
             steps {
                 script {
                     echo "Branch name is "+env.BRANCH_NAME
