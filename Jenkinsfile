@@ -50,6 +50,9 @@ pipeline {
         stage('Kubernetes Deployment') {
 		    steps {
                 echo "Kubernetes deployment"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f namespace.yaml"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f configmap.yaml"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f secret.yaml"
 		        bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f deployment.yaml"
 		    }
 		}
