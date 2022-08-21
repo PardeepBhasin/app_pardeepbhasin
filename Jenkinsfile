@@ -9,12 +9,7 @@ pipeline {
         registryCredential = 'dockerhubcredentials'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/'+env.BRANCH_NAME]], extensions: [], userRemoteConfigs: [[url: 'https://github.com/PardeepBhasin/app_pardeepbhasin.git']]])
-            }
-        }
-        stage('Build Docker image') {
+        stage('Build') {
             steps {
                 script {
                     echo "Branch name is "+env.BRANCH_NAME
@@ -55,6 +50,9 @@ pipeline {
         stage('Kubernetes Deployment') {
 		    steps {
                 echo "Kubernetes deployment"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f namespace.yaml"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f configmap.yaml"
+                bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f secret.yaml"
 		        bat "kubectl --kubeconfig=C:\\Users\\pardeepbhasin\\.kube\\Config apply -f deployment.yaml"
 		    }
 		}
