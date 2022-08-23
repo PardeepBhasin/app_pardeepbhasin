@@ -57,7 +57,7 @@ pipeline {
                 bat "kubectl apply -f namespace.yaml"
                 bat "kubectl apply -f configmap.yaml"
                 bat "kubectl apply -f secret.yaml"
-		        bat "kubectl apply -f deployment.yaml"
+		bat "kubectl apply -f deployment.yaml"
                 echo "Deployment done"
 		    }
 		}
